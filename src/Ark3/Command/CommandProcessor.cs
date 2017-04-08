@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Ark3
+namespace Ark3.Command
 {
     public class CommandProcessor : ICommandProcessor
     {
@@ -14,9 +14,7 @@ namespace Ark3
             _commandHandlerFactories = new Dictionary<Type, object>();
         }
 
-        public void RegisterHandlerFactory<TCommand, TCommandHandlerFactory>(TCommandHandlerFactory factory)
-            where TCommand : ICommand
-            where TCommandHandlerFactory : ICommandHandlerFactory<TCommand>
+        public void RegisterHandlerFactory<TCommand>(ICommandHandlerFactory<TCommand> factory) where TCommand : ICommand
         {
             Type commandType = typeof(TCommand);
 
@@ -35,9 +33,12 @@ namespace Ark3
 
                 MethodInfo createMethod = commandHandlerFactoryType.GetDeclaredMethod("CreateHandler");
                 commandHandler = createMethod.Invoke(commandHandlerFactory, null);
-                
-                MethodInfo executeMethod = commandHandler.GetType().GetTypeInfo().GetDeclaredMethod("Execute");
-                executeMethod.Invoke(commandHandler, new[] { command });
+
+                if (commandHandler != null)
+                {
+                    MethodInfo executeMethod = commandHandler.GetType().GetTypeInfo().GetDeclaredMethod("Execute");
+                    executeMethod.Invoke(commandHandler, new[] { command });
+                }
             }
 
             return commandHandler;

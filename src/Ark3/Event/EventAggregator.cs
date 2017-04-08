@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Ark3
+namespace Ark3.Event
 {
     public class EventAggregator : IEventAggregator
     {

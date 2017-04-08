@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ark3
+namespace Ark3.Event
 {
     public interface IEventAggregator
     {

@@ -1,4 +1,4 @@
-﻿namespace Ark3
+﻿namespace Ark3.Event
 {
     public interface IEvent
     {

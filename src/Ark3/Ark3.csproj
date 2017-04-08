@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Command\ve-775C.tmp" />
     <None Remove="ve-3E90.tmp" />
   </ItemGroup>
 

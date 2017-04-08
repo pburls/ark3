@@ -1,7 +1,8 @@
-﻿using Moq;
+﻿using Ark3.Event;
+using Moq;
 using Xunit;
 
-namespace Ark3.Test
+namespace Ark3.Test.Event
 {
     public class EventAggregatorTest
     {

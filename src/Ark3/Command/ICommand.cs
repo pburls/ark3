@@ -1,4 +1,4 @@
-﻿namespace Ark3
+﻿namespace Ark3.Command
 {
     public interface ICommand { }
 }
