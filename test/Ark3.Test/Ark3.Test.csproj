@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <Description>A simple Messaging framework for single threaded applications.
 Test library.</Description>
-    <Version>1.0.0-pre</Version>
+    <Version>1.0.1-pre</Version>
     <Authors>Patrick Burls</Authors>
     <Company>Patrick Burls</Company>
     <Copyright>Patrick Burls 2017</Copyright>
