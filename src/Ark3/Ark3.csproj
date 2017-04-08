@@ -8,7 +8,7 @@
     <PackageLicenseUrl>https://github.com/pburls/ark3/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/pburls/ark3</PackageProjectUrl>
     <RepositoryUrl>https://github.com/pburls/ark3</RepositoryUrl>
-    <Version>1.0.0-pre</Version>
+    <Version>1.0.1-pre</Version>
     <Description>A simple Messaging framework for single threaded applications.</Description>
     <RepositoryType>git</RepositoryType>
     <PackageTags>eventbus command-processor event-aggregation message-bus cqrs dotnet</PackageTags>

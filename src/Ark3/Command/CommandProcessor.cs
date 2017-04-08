@@ -36,7 +36,7 @@ namespace Ark3.Command
 
                 if (commandHandler != null)
                 {
-                    MethodInfo executeMethod = commandHandler.GetType().GetTypeInfo().GetDeclaredMethod("Execute");
+                    MethodInfo executeMethod = createMethod.ReturnType.GetTypeInfo().GetDeclaredMethod("Execute");
                     executeMethod.Invoke(commandHandler, new[] { command });
                 }
             }
