@@ -1,8 +1,8 @@
-﻿if (!$Env:env:APPVEYOR_BUILD_NUMBER ) {
+﻿if (!$env:APPVEYOR_BUILD_NUMBER) {
     $revision = '1'
 }
 else {
-    $revision = $Env:env:APPVEYOR_BUILD_NUMBER 
+    $revision = $env:APPVEYOR_BUILD_NUMBER
 }
 $revision = "ci-{0:D4}" -f [convert]::ToInt32($revision, 10)
 Write-Host "Running build as $revision"
