@@ -13,8 +13,11 @@ $test_file = '.\test\Ark3.Test\Ark3.Test.csproj'
 Write-Host "Restoring solution nuget dependencies"
 dotnet restore
 
+Write-Host "Build solution"
+dotnet build --configuration Release
+
 Write-Host "Running test project $test_file"
-dotnet test $test_file
+dotnet test $test_file --configuration Release
 
 Write-Host "Packaging $project_file with version suffix $revision"
 dotnet pack $project_file --configuration Release --version-suffix=$revision
