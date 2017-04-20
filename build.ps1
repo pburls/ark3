@@ -19,7 +19,7 @@ dotnet build --configuration Release
 Write-Host "Running test project $test_file"
 dotnet test $test_file --configuration Release
 
-if($env:APPVEYOR_REPO_BRANCH -ne "master") {
+if($env:APPVEYOR_REPO_BRANCH -ne "master" -or $env:APPVEYOR_PULL_REQUEST_NUMBER) {
     Write-Host "Packaging $project_file with version suffix $revision"
     dotnet pack $project_file --configuration Release --version-suffix=$revision
 }
