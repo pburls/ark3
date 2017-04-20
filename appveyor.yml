@@ -1,12 +1,8 @@
-version: 1.0.{build}
+version: '{build}'
 image: Visual Studio 2017
 build_script:
-- ps: >-
-    dotnet restore
-
-    dotnet pack .\src\Ark3\Ark3.csproj --configuration Release
-test_script:
-- ps: dotnet test .\test\Ark3.Test\Ark3.Test.csproj
+- ps: .\build.ps1
+test: off
 artifacts:
 - path: src\Ark3\bin\**\*.nupkg
   name: Ark3
