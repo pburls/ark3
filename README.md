@@ -7,7 +7,7 @@ A simple Messaging framework that can help improve cohesion and reduce coupling 
 
 # Usage
 ## Event Aggregator
-By creating a single Event Aggregator instance for the lifetime of an application, the different components of the application can then Subscribe and Publish Events to each other. This can help reduce unnecessary coupling between components and improve testability and cohesion.
+By creating a single Event Aggregator instance for the lifetime of an application, the different components of the application can then Subscribe and Publish Events to each other. This can help reduce unnecessary coupling between components (they don't explicitly need to know about each other) and improve testability and cohesion.
 ### Event Messages
 You should create different event message objects to represent different events that take place in your application's lifetime.  
 All event message objects sent on the Event Aggregator need to implement the `Ark3.Event.IEvent` interface.  
@@ -31,16 +31,16 @@ For example:
 _eventAggregator.PublishEvent(new ManifestFilesFound(fileReader.FileName));
 ```
 ### Subscribing to Events of a specific Type
-A component can subscribe with an instance of the Event Aggregator to be notified every time an event of a specific type is published on the Event Aggregator.  
-Components can also subscribe to inherited types and still be notified if derived event types are published. This offers a intuitive OO approach to event messaging in a system.  
-The component object will need to implement the `Ark3.Event.IEventHandler<TEvent>` interface where `TEvent` is the type of the event that component is interested in listening for.  
-Finally the component must register itself with the applications Event Aggregator instance as a listener of the specific event using the `Subscribe<TEvent>` action method.
+A component can subscribe with the Event Aggregator to be notified every time an event of a specific type is published on the Event Aggregator.  
+Components can also subscribe to inherited types and still be notified if derived event types are published. This offers a intuitive Object Oriented approach to event messaging in a system.  
+The component object will need to implement the `Ark3.Event.IEventHandler<TEvent>` interface where `TEvent` is the type of the event that the component is interested in listening for.  
+Finally the component must register itself with the application's Event Aggregator instance as a listener of the specific event using the `Subscribe<TEvent>` action method.
 For example:
 ```
 _eventAggregator.Subscribe<GenerateGraphStarted>(this);
 _eventAggregator.Subscribe<GenerateGraphResult>(this);
 ```
-A simpler alternative for components that listen to multiple event types is to use the `SubscribeAll` action method.
+A simpler alternative for components that listen to multiple event types is to use the `SubscribeAll` action method that uses reflection to see what Event Handler interfaces the component implements.
 ```
 _eventAggregator.SubscribeAll(this);
 ```
@@ -50,7 +50,7 @@ When a component is no longer interested in being notified when events of a spec
 ## Command Processor
 Commands are a different type of message that help improve cohesion and reduce coupling in a system. The fundamental difference is that commands can only be handled by one command handler. In other words, only one command handler can be register with the Command Processor for a specific type of command.
 Only one instance of the Command Processor should be created for the lifetime of an application.
-Any command handlers should be registered with the command processor when the application starts.
+And any command handlers should be registered with the command processor when the application starts.
 ### Command Messages
 The different commands that your application can process should be represented as Command objects.  
 A command object must implement the `Ark3.Command.ICommand` interface.  
@@ -70,10 +70,10 @@ public class DeployCommand : ICommand
 }
 ```
 ### Executing a Command
-If any component in an application needs a command executed, it will need to create a command message object with the necessary details and invoke the `Execute(ICommand command)` action on the Command Processor instance of the application.
+If any component in an application needs a command executed, it will need to create an instance of a command message object with the necessary details and invoke the `Execute(ICommand command)` action method on the single application instance of the Command Processor.
 For example:
 ```
-commandProcessor.Execute(new DeployCommand("exampleName", true));
+_commandProcessor.Execute(new DeployCommand("exampleName", true));
 ```
 ### Command Handler
 A component that is responsible for the execution of specific commands must implement the `Ark3.Command.ICommandHandler<in TCommand>` interface, where `TCommand` is the type of command message the handler is responsible for executing.
@@ -100,5 +100,5 @@ class DeployCommandHandlerFactory : ICommandHandlerFactory<DeployCommand>
 ```
 ### Registering a Command Handler
 Each command handler must be registered with the Command Processor so that it knows which command handler to invoke when a command is given to it to be executed.
-This is done by using the `RegisterHandlerFactory<TCommand>(ICommandHandlerFactory<TCommand> factory)` action on the Command Processor instance of the application.  
+This is done by using the `RegisterHandlerFactory<TCommand>(ICommandHandlerFactory<TCommand> factory)` action on the single application instance of the Command Processor.  
 This is usually done at the start up of the application.
