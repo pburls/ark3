@@ -11,7 +11,9 @@
     <Description>A simple Messaging framework that can help improve cohesion and reduce coupling in single threaded applications.
 
 It provides a EventAggregator service with a simple publish/subscribe interface.
-It also provides a simple CommandProcessor service that allows the publishing and handling of commands.</Description>
+It also provides a simple CommandProcessor service that allows the publishing and handling of commands.
+
+For more usage information, please the visit the Ark3 project site on GitHub.</Description>
     <RepositoryType>git</RepositoryType>
     <PackageTags>eventbus command-processor event-aggregation message-bus cqrs dotnet</PackageTags>
   </PropertyGroup>
